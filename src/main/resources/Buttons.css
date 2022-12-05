@@ -1,0 +1,21 @@
+.button {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 3, 0.5, 3, 3);
+    -fx-text-fill: white;
+    -fx-font-family: "Monospace";
+    -fx-font-size: 17;
+    -fx-font-weight: normal;
+    -fx-alignment: center;
+    -fx-background-color: rgb(54, 69, 79);
+    -fx-background-radius: 10px;
+    -fx-border-padding: 5 5 5 5;
+  }
+  
+  .button:hover {
+    -fx-background-color: rgb(96, 130, 182);
+  }
+  
+  .button:pressed {
+    -fx-background-color: grey;
+  }
+  

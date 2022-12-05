@@ -1,0 +1,31 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.checkerframework' version '0.6.20'
+}
+
+apply plugin: 'org.checkerframework'
+sourceCompatibility = 17
+version = '1.0.0'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.checkerframework', name: 'checker-qual', version: '3.28.0'
+}
+
+javafx {
+    version = "17.0.2"
+    modules = ['javafx.base', 'javafx.graphics', 'javafx.controls']
+}
+
+application {
+    // Define the main class for the application.
+    mainModule = 'Calculator'
+    mainClass = 'de.tum.in.ase.Calculator'
+}

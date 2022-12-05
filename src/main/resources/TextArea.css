@@ -1,0 +1,30 @@
+.text-area {
+  -fx-background-color: transparent;
+  -fx-font-family: Yu Gothic;
+  -fx-font-size: 15;
+  -fx-text-fill: rgb(255, 255, 255);
+  -fx-padding: 10;
+}
+
+.text-area .scroll-pane {
+  -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport {
+  -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content {
+  -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .scroll-bar:horizontal .track,
+.thumb {
+  -fx-background-color: rgb(54, 69, 79);
+  -fx-border-color: transparent;
+}
+
+.text-area .scroll-bar:horizontal,
+.scroll-bar:vertical {
+  -fx-background-color: transparent;
+}
