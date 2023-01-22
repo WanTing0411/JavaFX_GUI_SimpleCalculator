@@ -17,7 +17,7 @@ public class Logic {
         }
         history.add("Input: " + input + System.lineSeparator());
         // TODO Task 1.1 - 1.5: Implement input handling and output calculation.
-        Pattern pattern = Pattern.compile("[-+/*%^]");
+        Pattern pattern = Pattern.compile("[\\+x÷%-]");
         Matcher matcher = pattern.matcher(input);
         String operator = "";
         long firstNum = 0;
@@ -41,10 +41,9 @@ public class Logic {
             switch (operator) {
                 case "+" -> input = String.valueOf(sum(firstNum, secondNum));
                 case "-" -> input = String.valueOf(sub(firstNum, secondNum));
-                case "*" -> input = String.valueOf(mul(firstNum, secondNum));
-                case "/" -> input = String.valueOf(div(firstNum, secondNum));
+                case "x" -> input = String.valueOf(mul(firstNum, secondNum));
+                case "÷" -> input = String.valueOf(div(firstNum, secondNum));
                 case "%" -> input = String.valueOf(modulo(firstNum, secondNum));
-                default -> new ArithmeticException();
             }
         }
         history.add("Result: " + input + System.lineSeparator());
@@ -76,7 +75,7 @@ public class Logic {
     }
 
     public static void main(String[] args) {
-        String input = "100-200";
+        String input = "200÷100";
         Logic l = new Logic();
         System.out.println(l.evaluate(input));
     }
