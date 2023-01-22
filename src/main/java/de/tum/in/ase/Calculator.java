@@ -169,6 +169,12 @@ public class Calculator extends Application {
         // evaluation button.
         operationButtons.get(5).setOnAction(action -> {
             // TODO Task 2.1 : Complete the action event for evaluation button using the `logic` attribute. Pass the text of the label to the `evaluate(String)` method in `Logic` and then replace the label text with the return value of the `evaluate(String)` method. Additionally reset the currentOperation to `""`.
+            if (checkMaximumLength()) {
+                outOfBoundAlert();
+            } else {
+                logic.evaluate(label.getText());
+                setCurrentOperation("");
+            }
         });
     }
 
@@ -181,7 +187,14 @@ public class Calculator extends Application {
         // history button
         otherButtons.get(2).setOnAction(action -> {
             // TODO Task 2.2: Add the current `history` from the `Logic`class to the `textArea` attribute in order to display the history on the history window.
-            textArea.setText("");
+            if (checkMaximumLength()) {
+                outOfBoundAlert();
+            }
+            for (String text : logic.getHistory()) {
+                System.out.println(textArea.getText());
+                textArea.setText(text);
+            }
+            //textArea.setText("");
             // TODO: Optional part, Apply custom css to the text area, see line 136 for example.
             // Text area configuration
             textArea.setWrapText(true);
@@ -243,6 +256,10 @@ public class Calculator extends Application {
             // 2. If 1 is not the case, check whether the text on the label is already a valid number (positive or negative number) (e.g. via RegEx) or whether the the text on the label is "" and symbol parameter is -.
             // 3. If 2 is the case, add a - to the text on the label and (only if the text on the label was not "" before), adjust the currentOperation to - (e.g. via setCurrentOperation(String)).
             // 4. If 2 is not the case the resulting expression will be invalid. Therefore, please set the text on the label to INVALID INPUT and reset the currentOperation to "" (e.g. via setCurrentOperation(String)).
+
+            if (checkMaximumLength()) {
+                outOfBoundAlert();
+            }
         };
     }
 
