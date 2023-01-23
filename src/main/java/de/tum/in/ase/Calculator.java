@@ -191,11 +191,12 @@ public class Calculator extends Application {
                 outOfBoundAlert();
             }
             textArea.setText("");
-            for (String text : logic.getHistory()) {
-                textArea.appendText(text);
-                System.out.println(textArea.getText());
+            if(logic.getHistory()!=null){
+                for (String text : logic.getHistory()) {
+                    textArea.appendText(text);
+                    System.out.println(textArea.getText());
+                }
             }
-            //textArea.setText("");
             // TODO: Optional part, Apply custom css to the text area, see line 136 for example.
             // Text area configuration
             textArea.setWrapText(true);
