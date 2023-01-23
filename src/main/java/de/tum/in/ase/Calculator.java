@@ -190,8 +190,8 @@ public class Calculator extends Application {
             if (checkMaximumLength()) {
                 outOfBoundAlert();
             }
+            textArea.setText("");
             for (String text : logic.getHistory()) {
-                //textArea.setText(text);
                 textArea.appendText(text);
                 System.out.println(textArea.getText());
             }

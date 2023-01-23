@@ -11,7 +11,7 @@ public class Logic {
     private final List<String> history = new ArrayList<>();
     private static final Pattern INPUT_VALIDATION_PATTERN = Pattern.compile("^-?(0|[1-9]\\d*)[\\+x÷%-](0|[1-9]\\d*)$");
 
-    public @NonNull String evaluate(@NonNull String input) {
+    public @NonNull String evaluate(@NonNull String input) throws ArithmeticException {
         if (!Logic.INPUT_VALIDATION_PATTERN.matcher(input).matches()) {
             return "INVALID INPUT";
         }
@@ -35,44 +35,63 @@ public class Logic {
             int start = matcher.start();
             int end = matcher.end();
             String operator = input.substring(start, end);
-            switch (operator) {
-                case "+": {
-                    input = String.valueOf(sum(firstNum, secondNum));
-                    history.add("Result: " + input + System.lineSeparator());
-                    return input;
+            if (operator.equals("+")) {
+                input = String.valueOf(sum(firstNum, secondNum));
+            } else if (operator.equals("-")) {
+                input = String.valueOf(sub(firstNum, secondNum));
+            } else if (operator.equals("x")) {
+                input = String.valueOf(mul(firstNum, secondNum));
+            } else if (operator.equals("÷")) {
+                if (secondNum != 0) {
+                    input = String.valueOf(div(firstNum, secondNum));
+                } else {
+                    throw new ArithmeticException();
                 }
-                case "-": {
-                    input = String.valueOf(sub(firstNum, secondNum));
-                    history.add("Result: " + input + System.lineSeparator());
-
-                    return input;
+            } else if (operator.equals("%")) {
+                if (secondNum != 0) {
+                    input = String.valueOf(modulo(firstNum, secondNum));
                 }
-                case "x": {
-                    input = String.valueOf(mul(firstNum, secondNum));
-                    history.add("Result: " + input + System.lineSeparator());
-                    return input;
-                }
-                case "÷": {
-                    if (secondNum != 0) {
-                        input = String.valueOf(div(firstNum, secondNum));
-                        history.add("Result: " + input + System.lineSeparator());
-                        return input;
-                    }
-                }
-                case "%": {
-                    if (secondNum != 0) {
-                        input = String.valueOf(modulo(firstNum, secondNum));
-                        history.add("Result: " + input + System.lineSeparator());
-                        return input;
-                    } else {
-                        throw new ArithmeticException();
-                    }
-                }
-                default: {
-                    new ArithmeticException();
-                }
+            } else {
+                throw new ArithmeticException();
             }
+//            switch (operator) {
+//                case "+": {
+//                    input = String.valueOf(sum(firstNum, secondNum));
+//                    history.add("Result: " + input + System.lineSeparator());
+//                    return input;
+//                }
+//                case "-": {
+//                    input = String.valueOf(sub(firstNum, secondNum));
+//                    history.add("Result: " + input + System.lineSeparator());
+//                    return input;
+//                }
+//                case "x": {
+//                    input = String.valueOf(mul(firstNum, secondNum));
+//                    history.add("Result: " + input + System.lineSeparator());
+//                    return input;
+//                }
+//                case "÷": {
+//                    if (secondNum != 0) {
+//                        input = String.valueOf(div(firstNum, secondNum));
+//                        history.add("Result: " + input + System.lineSeparator());
+//                        return input;
+//                    }
+//                }
+//                case "%": {
+//                    if (secondNum != 0) {
+//                        input = String.valueOf(modulo(firstNum, secondNum));
+//                        history.add("Result: " + input + System.lineSeparator());
+//                        return input;
+//                    } else {
+//                        throw new ArithmeticException();
+//                    }
+//                }
+//                default: {
+//                    new ArithmeticException();
+//                }
+//            }
         }
+        history.add("Result: " + input + System.lineSeparator());
         return input;
     }
 
