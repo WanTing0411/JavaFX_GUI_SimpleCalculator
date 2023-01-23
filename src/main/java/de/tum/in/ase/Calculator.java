@@ -172,7 +172,7 @@ public class Calculator extends Application {
             if (checkMaximumLength()) {
                 outOfBoundAlert();
             } else {
-                logic.evaluate(label.getText());
+                label.setText(logic.evaluate(label.getText()));
                 setCurrentOperation("");
             }
         });
@@ -191,8 +191,9 @@ public class Calculator extends Application {
                 outOfBoundAlert();
             }
             for (String text : logic.getHistory()) {
+                //textArea.setText(text);
+                textArea.appendText(text);
                 System.out.println(textArea.getText());
-                textArea.setText(text);
             }
             //textArea.setText("");
             // TODO: Optional part, Apply custom css to the text area, see line 136 for example.
@@ -259,7 +260,14 @@ public class Calculator extends Application {
 
             if (checkMaximumLength()) {
                 outOfBoundAlert();
+            } else {
+                if (label.getText().equals("INVALID INPUT")) {
+                    label.setText(symbol);
+                } else {
+                    label.setText(label.getText() + symbol);
+                }
             }
+
         };
     }
 

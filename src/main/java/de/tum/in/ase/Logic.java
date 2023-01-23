@@ -19,9 +19,6 @@ public class Logic {
         // TODO Task 1.1 - 1.5: Implement input handling and output calculation.
         Pattern pattern = Pattern.compile("[\\+x÷%-]");
         Matcher matcher = pattern.matcher(input);
-        String operator = "";
-        long firstNum = 0;
-        long secondNum = 0;
         //
         Matcher m1 = Pattern.compile("(0|[1-9]\\d*)").matcher(input); //firstNum
         Matcher m2 = Pattern.compile("[\\+x÷%-](0|[1-9]\\d*)").matcher(input); //secondNum
@@ -29,24 +26,53 @@ public class Logic {
         if (matcher.find() && m1.find() && m2.find()) {
             int start1 = m1.start();
             int end1 = m1.end();
-            firstNum = Long.parseLong(input.substring(start1, end1));
+            long firstNum = Long.parseLong(input.substring(start1, end1));
 
             int start2 = m2.start() + removeOperator;
             int end2 = m2.end();
-            secondNum = Long.parseLong(input.substring(start2, end2));
+            long secondNum = Long.parseLong(input.substring(start2, end2));
 
             int start = matcher.start();
             int end = matcher.end();
-            operator = input.substring(start, end);
+            String operator = input.substring(start, end);
             switch (operator) {
-                case "+" -> input = String.valueOf(sum(firstNum, secondNum));
-                case "-" -> input = String.valueOf(sub(firstNum, secondNum));
-                case "x" -> input = String.valueOf(mul(firstNum, secondNum));
-                case "÷" -> input = String.valueOf(div(firstNum, secondNum));
-                case "%" -> input = String.valueOf(modulo(firstNum, secondNum));
+                case "+": {
+                    input = String.valueOf(sum(firstNum, secondNum));
+                    history.add("Result: " + input + System.lineSeparator());
+                    return input;
+                }
+                case "-": {
+                    input = String.valueOf(sub(firstNum, secondNum));
+                    history.add("Result: " + input + System.lineSeparator());
+
+                    return input;
+                }
+                case "x": {
+                    input = String.valueOf(mul(firstNum, secondNum));
+                    history.add("Result: " + input + System.lineSeparator());
+                    return input;
+                }
+                case "÷": {
+                    if (secondNum != 0) {
+                        input = String.valueOf(div(firstNum, secondNum));
+                        history.add("Result: " + input + System.lineSeparator());
+                        return input;
+                    }
+                }
+                case "%": {
+                    if (secondNum != 0) {
+                        input = String.valueOf(modulo(firstNum, secondNum));
+                        history.add("Result: " + input + System.lineSeparator());
+                        return input;
+                    } else {
+                        throw new ArithmeticException();
+                    }
+                }
+                default: {
+                    new ArithmeticException();
+                }
             }
         }
-        history.add("Result: " + input + System.lineSeparator());
         return input;
     }
 
@@ -75,7 +101,7 @@ public class Logic {
     }
 
     public static void main(String[] args) {
-        String input = "200÷100";
+        String input = "200÷10";
         Logic l = new Logic();
         System.out.println(l.evaluate(input));
     }
