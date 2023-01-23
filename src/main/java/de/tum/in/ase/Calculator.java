@@ -190,12 +190,15 @@ public class Calculator extends Application {
             if (checkMaximumLength()) {
                 outOfBoundAlert();
             }
+            StringBuilder bld = new StringBuilder();
             String textAreaString = "";
             for (String text : logic.getHistory()) {
-                textAreaString += String.format("%s\n", text);
+                bld.append(text + '\n');
                 //textArea.appendText(text);
 //                System.out.println(textArea.getText());
             }
+            //textAreaString = String.format("%s%n", bld.toString());
+            textAreaString = bld.toString();
             textArea.setText(textAreaString);
 
             // TODO: Optional part, Apply custom css to the text area, see line 136 for example.
