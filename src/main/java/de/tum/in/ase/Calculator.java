@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Calculator extends Application {
     private List<Button> numberButtons;
@@ -263,16 +265,24 @@ public class Calculator extends Application {
             // 3. If 2 is the case, add a - to the text on the label and (only if the text on the label was not "" before), adjust the currentOperation to - (e.g. via setCurrentOperation(String)).
             // 4. If 2 is not the case the resulting expression will be invalid. Therefore, please set the text on the label to INVALID INPUT and reset the currentOperation to "" (e.g. via setCurrentOperation(String)).
 
+            Pattern pattern = Pattern.compile("^-?(0|[1-9]\\d*)[\\+x÷%-](0|[1-9]\\d*)$");
+            Matcher matcher = pattern.matcher(label.getText());
+            Pattern pattern1 = Pattern.compile("^-?(0|[1-9]\\d*)$");
+            Matcher matcher1 = pattern1.matcher(label.getText());
             if (checkMaximumLength()) {
                 outOfBoundAlert();
+            }
+            if (matcher.find()) {
+                label.setText(logic.evaluate(label.getText()));
             } else {
-                if (label.getText().equals("INVALID INPUT")) {
-                    label.setText(symbol);
-                } else {
+                if (matcher1.find() || symbol.equals("-") || label.getText().equals("")) {
                     label.setText(label.getText() + symbol);
+                    setCurrentOperation(symbol);
+                } else {
+                    label.setText("INVALID INPUT");
+                    setCurrentOperation("");
                 }
             }
-
         };
     }
 
